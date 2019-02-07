@@ -24,37 +24,19 @@ module.exports = function (app) {
   let libraryHandler = new LibraryHandler();
 
   app.route('/api/books')
-    .get(function (req, res){
-      //response will be array of book objects
-      //json res format: [{"_id": bookid, "title": book_title, "commentcount": num_of_comments },...]
-    })
+    .get(libraryHandler.getBooks)
     
-    .post(libraryHandler.addBook) //{
-     // var title = req.body.title;
-      //response will contain new book object including atleast _id and title
-   // })
+    .post(libraryHandler.addBook) 
     
-    .delete(function(req, res){
-      //if successful response will be 'complete delete successful'
-    });
+    .delete(libraryHandler.deleteAllBooks);
 
 
 
   app.route('/api/books/:id')
-    .get(function (req, res){
-      var bookid = req.params.id;
-      //json res format: {"_id": bookid, "title": book_title, "comments": [comment,comment,...]}
-    })
+    .get(libraryHandler.getBookId)
     
-    .post(function(req, res){
-      var bookid = req.params.id;
-      var comment = req.body.comment;
-      //json res format same as .get
-    })
+    .post(libraryHandler.addComment)
     
-    .delete(function(req, res){
-      var bookid = req.params.id;
-      //if successful response will be 'delete successful'
-    });
+    .delete(libraryHandler.deleteBook)
   
 };
