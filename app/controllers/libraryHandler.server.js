@@ -1,9 +1,16 @@
 'use strict';
 
-const Library = require('../model/issues.js');
+const Library = require('../model/library.js');
 
 function libraryHandler () {
   
+  
+
+}
+
+module.exports = libraryHandler;
+
+/*
   this.viewIssue = (req, res) => {
     var project = req.params['project'] !== '{}' ? req.params: {},
         query   = req.query;
@@ -124,6 +131,4 @@ function libraryHandler () {
 				});
 	};
 
-}
-
-module.exports = libraryHandler;
+*/

@@ -5,11 +5,12 @@
 *       
 *       
 */
-
-const LibraryHandler = require(path + '/app/controllers/libraryHandler.server.js');
-      path           = process.cwd();
+      
 
 'use strict';
+
+const path           = process.cwd(),
+      LibraryHandler = require(path + '/app/controllers/libraryHandler.server.js');
 
 var expect = require('chai').expect;
 var MongoClient = require('mongodb').MongoClient;

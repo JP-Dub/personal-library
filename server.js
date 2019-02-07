@@ -13,11 +13,6 @@ const helmet          = require('helmet'),
 
 var app = express();
 
-app.use('/public', express.static(process.cwd() + '/public'));
-
-app.use(cors({origin: '*'})); //USED FOR FCC TESTING PURPOSES ONLY!
-
-//require('dotenv').load();
 app.use(helmet({
   cacheControl : ['no-store', 'no-cache', 'must-revalidate', 'proxy-revalidate'],
   hidePoweredBy: { 
@@ -25,7 +20,13 @@ app.use(helmet({
   },
 }));
 
-mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true});
+app.use('/public', express.static(process.cwd() + '/public'));
+
+app.use(cors({origin: '*'})); //USED FOR FCC TESTING PURPOSES ONLY!
+
+//require('dotenv').load();
+
+mongoose.connect(process.env.DB, {useNewUrlParser: true});
 mongoose.Promise = global.Promise;
 
 app.use(bodyParser.json());
