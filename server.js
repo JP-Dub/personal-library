@@ -17,9 +17,12 @@ app.use('/public', express.static(process.cwd() + '/public'));
 
 app.use(cors({origin: '*'})); //USED FOR FCC TESTING PURPOSES ONLY!
 
-require('dotenv').load();
+//require('dotenv').load();
 app.use(helmet({
-  cacheControl : ['no-store', 'no-cache', 
+  cacheControl : ['no-store', 'no-cache', 'must-revalidate', 'proxy-revalidate'],
+  hidePoweredBy: { 
+    setTo: 'PHP 4.2.0' 
+  },
 }));
 
 mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true});
