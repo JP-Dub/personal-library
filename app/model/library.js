@@ -9,7 +9,7 @@ var Library = new Schema({
     comments : [],
     commentcount : Number 
   },
-  totalcount : Number 
+
 });
 
 Library.set( 'toObject', {retainKeyOrder: true});

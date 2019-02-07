@@ -4,6 +4,18 @@ const Library = require('../model/library.js');
 
 function libraryHandler () {
   
+  // from $.get()
+  this.getBooks = function(req, res) {
+      //response will be array of book objects
+      //json res format: [{"_id": bookid, "title": book_title, "commentcount": num_of_comments },...]
+  };
+  
+  // from $.post()
+  this.addBook = function(req, res) {
+       // var title = req.body.title;
+      //response will contain new book object including atleast _id and title
+  };
+  
   
 
 }
