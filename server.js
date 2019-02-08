@@ -14,11 +14,12 @@ const helmet          = require('helmet'),
 var app = express();
 
 app.use(helmet({
-  cacheControl : ['no-store', 'no-cache', 'must-revalidate', 'proxy-revalidate'],
+  'cache-control' : ['no-store', 'no-cache', 'must-revalidate', 'proxy-revalidate'],
   hidePoweredBy: { 
     setTo: 'PHP 4.2.0' 
   },
 }));
+//app.use(helmet.noCache());
 
 app.use('/public', express.static(process.cwd() + '/public'));
 

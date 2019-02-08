@@ -6,34 +6,41 @@ function libraryHandler () {
   // app.route('/api/books')
   // from $.get()
   this.getBooks = function(req, res) {
+    console.log('getBooks', res)
       //response will be array of book objects
       //json res format: [{"_id": bookid, "title": book_title, "commentcount": num_of_comments },...]
+    res.json(req.header)
   };
   
   // from $.post()
   this.addBook = function(req, res) {
+    console.log('addBook')
        // var title = req.body.title;
       //response will contain new book object including atleast _id and title
   };
   
   // from $.delete()
   this.deleteAllBooks = function(req, res) {
+    console.log('deleteAllBooks')
      //if successful response will be 'complete delete successful'
   };
   
   //app.route('/api/books/:id')
   this.getBookId = function(req, res) {
+    console.log('getBookId')
       var bookid = req.params.id;
       //json res format: {"_id": bookid, "title": book_title, "comments": [comment,comment,...]}
   };
   
   this.addComment = function(req, res) {
+    console.log('addComment')
       var bookid = req.params.id;
       var comment = req.body.comment;
       //json res format same as .get  
   };
   
   this.deleteBook = (req, res) => {
+    console.log('deleteBook')
       var bookid = req.params.id;
       //if successful response will be 'delete successful'    
   };

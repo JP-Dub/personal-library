@@ -31,7 +31,6 @@ module.exports = function (app) {
     .delete(libraryHandler.deleteAllBooks);
 
 
-
   app.route('/api/books/:id')
     .get(libraryHandler.getBookId)
     
