@@ -76,18 +76,21 @@ function libraryHandler () {
       .exec( (err, bookid) => {
         if(err) throw err;
 
-        let response = {};
-
+        let response = {},
+            status;
+      
         if(!bookid.length) {
           response = {error: 'No book exists'};
+          status = 500;    
         } else {
           response = {
             _id : bookid[0]._id,
             _title: bookid[0].book.title,
             comments: bookid[0].book.comments
           }
+          status = 200;
         }
-        res.json(response);
+        res.status(status).json(response);
       });    
       //json res format: {"_id": bookid, "title": book_title, "comments": [comment,comment,...]}
   };

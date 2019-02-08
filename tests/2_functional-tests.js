@@ -48,9 +48,9 @@ suite('Functional Tests', function() {
           })
           .end(function(err, res){
             assert.equal(res.status, 200);
-            assert.isObject(res.body, 'response should be an object');
+            assert.isObject(     res.body, 'response should be an object');
             assert.property(res.body.book, 'title', 'returning object should contain title');
-            assert.property(res.body, '_id', 'object should contain unique _id');
+            assert.property(     res.body, '_id', 'object should contain unique _id');
             done();
           });
       });
@@ -80,10 +80,10 @@ suite('Functional Tests', function() {
           .get('/api/books/')
           .end(function(err, res){
             assert.equal(res.status, 200);
-            assert.isObject(     res.body, 'response should be an object');
-            assert.property(res.body.book, 'title', 'response should contain title');
-            assert.property(     res.body, '_id', 'response should contain _id');
-            assert.property(res.body.book, 'commentcount', 'response should contain commentcount');
+            assert.isArray(     res.body, 'response should be an array');
+            assert.property(res.body[0], 'title', 'response should contain title');
+            assert.property(     res.body[0], '_id', 'response should contain _id');
+            assert.property(res.body[0], 'commentcount', 'response should contain commentcount');
             done();
           });
       });      
@@ -95,13 +95,12 @@ suite('Functional Tests', function() {
       
       test('Test GET /api/books/[id] with id not in db',  function(done){
          chai.request(server)
-          .get('/api/books/')
+          .get('/api/books/5c5ded599356e4408c87dd11')
           .end(function(err, res){
-            assert.equal(res.status, 200);
-            assert.isObject(     res.body, 'response should be an object');
-            assert.property(res.body.book, 'title', 'response should contain title');
-            assert.property(     res.body, '_id', 'response should contain _id');
-            assert.property(res.body.book, 'commentcount', 'response should contain commentcount');
+            assert.equal(res.status, 500);
+            assert.isObject(      res.body, 'response should be an object');
+            assert.property(res.body.error, 'error', 'response should contain error');
+            assert.propertyVal(   res.body, 'error', 'No book exists');
             done();
           });
  
