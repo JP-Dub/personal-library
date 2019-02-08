@@ -11,16 +11,14 @@ function libraryHandler () {
       .find({})
       .exec( (err, books) => {
       if(err) throw err;
-      console.log(books[0].book.title)
       let response = [];
       books.forEach((book, idx) => {
         return response.push(
           { _id         : book._id,
             title       : book.book.title,
-            commentcount: book.book.commentcount.length
+            commentcount: book.book.comments.length
           });
       });
-      console.log(response)
       res.json(response);
       });
       //response will be array of book objects
@@ -67,6 +65,19 @@ function libraryHandler () {
   this.getBookId = function(req, res) {
     console.log('getBookId')
       var bookid = req.params.id;
+    Library
+      .find({_id: bookid})
+      .exec( (err, bookid) => {
+      if(err) throw err;
+      console.log(bookid)
+      let response = {
+        _id : bookid[0].
+      }
+      if(!bookid.length) {
+      
+      }
+       
+      });    
       //json res format: {"_id": bookid, "title": book_title, "comments": [comment,comment,...]}
   };
   
