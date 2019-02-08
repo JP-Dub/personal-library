@@ -28,16 +28,19 @@ function libraryHandler () {
       .exec( (err, book) => {
       if(err) throw err;
       
-      
-      
-      if(book.length) {
+      if(!book.length) {
         let library = new Library();
         
         library.title = title;
         library.comment = [];
         library.commentcount = 0;
         
-       console.log('addBooks', book)
+        library.save(function(err, success) {
+          if(err) throw err;
+          console.log('Book Added', success)
+          res.json(success);
+        }, {new: true});
+      
       }
        
       });
