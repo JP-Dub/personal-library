@@ -6,12 +6,12 @@ function libraryHandler () {
   // app.route('/api/books')
   // from $.get()
   this.getBooks = function(req, res) {
-    console.log('getBooks')
+    //console.log('getBooks')
     Library
       .find({})
       .exec( (err, books) => {
       if(err) throw err;
-      
+        console.log('getBooks', books)
       });
       //response will be array of book objects
       //json res format: [{"_id": bookid, "title": book_title, "commentcount": num_of_comments },...]
@@ -20,8 +20,21 @@ function libraryHandler () {
   
   // from $.post()
   this.addBook = function(req, res) {
-    console.log('addBook')
+    console.log('addBook' , req.body.title)
        // var title = req.body.title;
+    Library
+      .find({title: req.body.title})
+      .exec( (err, book) => {
+      if(err) throw err;
+      
+      if(book.length) {
+        let library = new Library();
+        
+        
+       console.log('addBooks', book)
+      }
+       
+      });
       //response will contain new book object including atleast _id and title
   };
   
