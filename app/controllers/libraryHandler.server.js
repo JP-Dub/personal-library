@@ -28,7 +28,7 @@ function libraryHandler () {
   
   // from $.post()
   this.addBook = function(req, res) {
-    console.log('addBook' , req.body.title)
+    //console.log('addBook' , req.body, req.path)
     if(req.body.title === "" ) return res.json({error: 'please enter a title'});
     
     let title = req.body.title.replace(/\b\w/g, (val) => val.toUpperCase());;
@@ -59,7 +59,7 @@ function libraryHandler () {
   
   // from $.delete()
   this.deleteAllBooks = function(req, res) {
-    console.log('deleteAllBooks')
+    //console.log('deleteAllBooks')
     Library.remove({}, (err, success) => {
       if(err) throw err;
       res.send('complete delete successful');
@@ -69,7 +69,7 @@ function libraryHandler () {
   
   //app.route('/api/books/:id')
   this.getBookId = function(req, res) {
-    console.log('getBookId')
+    //console.log('getBookId')
     let bookid = req.params.id;
     Library
       .find({_id: bookid})
@@ -93,7 +93,7 @@ function libraryHandler () {
   };
   
   this.addComment = function(req, res) {
-    console.log('addComment')
+    //console.log('addComment')
       let comment = req.body.comment,
           bookid  = req.params.id;
     
@@ -131,7 +131,7 @@ function libraryHandler () {
   };
   
   this.deleteBook = (req, res) => {
-    console.log('deleteBook')
+    //console.log('deleteBook')
     let bookid = req.params.id;
     Library
       .findOneAndDelete({_id: bookid})
