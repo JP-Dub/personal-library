@@ -14,7 +14,9 @@ const helmet          = require('helmet'),
 var app = express();
 
 app.use(helmet({
-  'cache-control' : ['no-store', 'no-cache', 'must-revalidate', 'proxy-revalidate'],
+  noCache : {
+    cacheControl : ['no-store', 'no-cache', 'must-revalidate', 'proxy-revalidate']
+  },
   hidePoweredBy: { 
     setTo: 'PHP 4.2.0' 
   },
