@@ -10,6 +10,7 @@ var chaiHttp = require('chai-http');
 var chai = require('chai');
 var assert = chai.assert;
 var server = require('../server');
+let testBookId;
 
 chai.use(chaiHttp);
 
@@ -47,6 +48,7 @@ suite('Functional Tests', function() {
             title: '1984' 
           })
           .end(function(err, res){
+            testBookId = res.body._id;
             assert.equal(res.status, 200);
             assert.isObject(     res.body, 'response should be an object');
             assert.property(res.body.book, 'title', 'returning object should contain title');
@@ -98,8 +100,8 @@ suite('Functional Tests', function() {
           .get('/api/books/5c5ded599356e4408c87dd11')
           .end(function(err, res){
             assert.equal(res.status, 500);
-            assert.isObject(      res.body, 'response should be an object');
-            assert.property(res.body.error, 'error', 'response should contain error');
+            assert.isObject(res.body, 'response should be an object');
+            assert.property(res.body, 'error', 'response should contain error');
             assert.propertyVal(   res.body, 'error', 'No book exists');
             done();
           });
@@ -107,7 +109,16 @@ suite('Functional Tests', function() {
       });
       
       test('Test GET /api/books/[id] with valid id in db',  function(done){
-        //done();
+         chai.request(server)
+          .get('/api/books/' + testBookId)
+          .end(function(err, res){
+            console.log(res.body)
+            assert.equal(res.status, 200);
+            assert.isObject(      res.body, 'response should be an object');
+            //assert.property(res.body.book, 'title', 'response should contain title');
+            //assert.isArray(res.body.book.comments, 'is an array');
+            done();
+          });
       });
       
     });
@@ -120,6 +131,14 @@ suite('Functional Tests', function() {
       });
       
     });
+    
+    suite('POST /api/books/[id] => add comment/expect book object with id', function(){
+      
+      test('Test POST /api/books/[id] with comment', function(done){
+        //done();
+      });
+      
+    });    
 
   });
 
