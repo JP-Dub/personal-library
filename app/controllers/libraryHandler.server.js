@@ -68,15 +68,20 @@ function libraryHandler () {
     Library
       .find({_id: bookid})
       .exec( (err, bookid) => {
-      if(err) throw err;
-      console.log(bookid)
-      let response = {
-        _id : bookid[0].
-      }
-      if(!bookid.length) {
-      
-      }
-       
+        if(err) throw err;
+
+        let response = {};
+
+        if(!bookid.length) {
+          response = {error: 'No book exists'};
+        } else {
+          response = {
+            _id : bookid[0]._id,
+            _title: bookid[0].book.title,
+            comments: bookid[0].book.comments
+          }
+        }
+        res.json(response);
       });    
       //json res format: {"_id": bookid, "title": book_title, "comments": [comment,comment,...]}
   };
