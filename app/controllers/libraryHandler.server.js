@@ -92,20 +92,29 @@ function libraryHandler () {
       let comment = req.body.comment,
           bookid  = req.params.id;
     Library
-      .find({_id: bookid})
+      .findOneAndUpdate({_id: bookid})
       .exec( (err, book) => {
         if(err) throw err;
-        console.log(comment)
-        
+        console.log(book)
+        let arr = book.book.comments
+        let response = {};
         if(!bookid.length) {
-         console.log('no length', book)
+          response = {error: 'no book exists'};
         } else {
-          book[0].book.comments.push(comment);
-          // book.save((err, success) => {
-          //   console.log('success', success);
-          // }, {new: true});
+          arr.push(comment);
+          book.book.commentcount++;
         }
-       // res.json(response);
+      
+        book.save((err, success) => {
+          if(err) throw err;
+          response = {
+            _id : bookid[0]._id,
+            _title: bookid[0].book.title,
+            comments: bookid[0].book.comments
+          };
+          
+        }, {new: true});
+      res.json(response);
       });     
     
     
