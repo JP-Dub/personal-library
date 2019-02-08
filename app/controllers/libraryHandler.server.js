@@ -101,9 +101,9 @@ function libraryHandler () {
          console.log('no length', book)
         } else {
           book[0].book.comments.push(comment);
-          book.save((err, success) => {
-            console.log('success', success);
-          }, {new: true});
+          // book.save((err, success) => {
+          //   console.log('success', success);
+          // }, {new: true});
         }
        // res.json(response);
       });     
