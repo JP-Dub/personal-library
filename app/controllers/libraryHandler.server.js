@@ -21,15 +21,21 @@ function libraryHandler () {
   // from $.post()
   this.addBook = function(req, res) {
     console.log('addBook' , req.body.title)
-       // var title = req.body.title;
+    let title = req.body.title.replace(/\b\w/g, (val) => val.toUpperCase());;
+    console.log(title)
     Library
-      .find({title: req.body.title})
+      .find({title: title})
       .exec( (err, book) => {
       if(err) throw err;
+      
+      
       
       if(book.length) {
         let library = new Library();
         
+        library.title = title;
+        library.comment = [];
+        library.commentcount = 0;
         
        console.log('addBooks', book)
       }
