@@ -59,6 +59,10 @@ function libraryHandler () {
   // from $.delete()
   this.deleteAllBooks = function(req, res) {
     console.log('deleteAllBooks')
+    Library.remove({}, (err, success) => {
+      if(err) throw err;
+      res.send('complete delete successful');
+    });
      //if successful response will be 'complete delete successful'
   };
   
