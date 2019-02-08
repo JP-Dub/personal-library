@@ -123,11 +123,17 @@ function libraryHandler () {
   
   this.deleteBook = (req, res) => {
     console.log('deleteBook')
-      var bookid = req.params.id;
+    let bookid = req.params.id;
+    Library
+      .findOneAndDelete({_id: bookid})
+      .exec( (err, book) => {
+        if(err) throw err;
+        return res.send('delete successful');
+
       //if successful response will be 'delete successful'    
-  };
+    });
   
-  
+  }
   
 };
 
