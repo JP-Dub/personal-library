@@ -114,9 +114,9 @@ suite('Functional Tests', function() {
           .end(function(err, res){
             console.log(res.body)
             assert.equal(res.status, 200);
-            assert.isObject(      res.body, 'response should be an object');
-            //assert.property(res.body.book, 'title', 'response should contain title');
-            //assert.isArray(res.body.book.comments, 'is an array');
+            assert.isObject(        res.body, 'response should be an object');
+            assert.property(        res.body, '_title', 'response should contain title');
+            assert.isArray(res.body.comments, 'is an array');
             done();
           });
       });
@@ -127,15 +127,33 @@ suite('Functional Tests', function() {
     suite('POST /api/books/[id] => add comment/expect book object with id', function(){
       
       test('Test POST /api/books/[id] with comment', function(done){
-        //done();
+         chai.request(server)
+          .post('/api/books/' + testBookId)
+          .send({
+            comment: 'This book practically predicted the future!' 
+          })
+          .end(function(err, res){
+            assert.equal(res.status, 200);
+            assert.isObject(        res.body, 'response should be an object');
+            assert.property(        res.body, '_title', 'response should contain title');
+            assert.isArray(res.body.comments, 'is an array');
+            done();
+          });
       });
       
     });
     
-    suite('POST /api/books/[id] => add comment/expect book object with id', function(){
+    suite('DELETE /api/books/[id] => delete book with id', function(){
       
-      test('Test POST /api/books/[id] with comment', function(done){
-        //done();
+      test('Test DELETE /api/books/[id]', function(done){
+         chai.request(server)
+          .delete('/api/books/' + testBookId)
+          .end(function(err, res){
+            assert.equal(res.status, 200);
+            assert.equal(res.text, 'delete successful');
+            done();
+          });
+
       });
       
     });    
