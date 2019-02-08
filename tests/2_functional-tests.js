@@ -42,14 +42,15 @@ suite('Functional Tests', function() {
       
       test('Test POST /api/books with title', function(done) {
          chai.request(server)
-          .post('/api/books/', )
+          .post('/api/books/')
+          .send({
+            title: '1984' 
+          })
           .end(function(err, res){
-           //console.log(res)
-            //assert.equal(res.status, 200);
-           console.log(res.status, res.body)
-             //assert.isObject(res.body, 'response should be an object');
-             //assert.property(res.body, 'title', 'response should contain property "title"');
-            // assert.property(res.body[0], 'title', 'Books in array should contain title');
+            assert.equal(res.status, 200);
+            assert.isObject(res.body, 'response should be an object');
+            assert.property(res.body.book, 'title', 'response should contain property "title"');
+            assert.property(res.body, '_id', 'Books in array should contain title');
             // assert.property(res.body[0], '_id', 'Books in array should contain _id');
             done();
           });

@@ -32,7 +32,7 @@ function libraryHandler () {
     if(req.body.title === "" ) return res.status(500).json({error: 'please enter a title'});
     
     let title = req.body.title.replace(/\b\w/g, (val) => val.toUpperCase());;
-    
+    console.log(title)
     Library
       .find({title: title})
       .exec( (err, book) => {
