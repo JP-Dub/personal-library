@@ -28,7 +28,7 @@ function libraryHandler () {
   
   // from $.post()
   this.addBook = function(req, res) {
-    console.log('addBook' , req.body, req.path)
+    //console.log('addBook' , req.body, req.path)
     if(req.body.title === "" ) return res.status(500).json({error: 'please enter a title'});
     
     let title = req.body.title.replace(/\b\w/g, (val) => val.toUpperCase());;
