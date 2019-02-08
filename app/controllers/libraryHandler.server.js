@@ -11,7 +11,17 @@ function libraryHandler () {
       .find({})
       .exec( (err, books) => {
       if(err) throw err;
-        console.log('getBooks', books)
+      console.log(books[0].book.title)
+      let response = [];
+      books.forEach((book, idx) => {
+        return response.push(
+          { _id         : book._id,
+            title       : book.book.title,
+            commentcount: book.book.commentcount.length
+          });
+      });
+      console.log(response)
+      res.json(response);
       });
       //response will be array of book objects
       //json res format: [{"_id": bookid, "title": book_title, "commentcount": num_of_comments },...]
@@ -22,7 +32,7 @@ function libraryHandler () {
   this.addBook = function(req, res) {
     console.log('addBook' , req.body.title)
     let title = req.body.title.replace(/\b\w/g, (val) => val.toUpperCase());;
-    console.log(title)
+    
     Library
       .find({title: title})
       .exec( (err, book) => {
@@ -31,9 +41,9 @@ function libraryHandler () {
       if(!book.length) {
         let library = new Library();
         
-        library.title = title;
-        library.comment = [];
-        library.commentcount = 0;
+        library.book.title = title;
+        library.book.comment = [];
+        library.book.commentcount = 0;
         
         library.save(function(err, success) {
           if(err) throw err;
