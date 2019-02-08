@@ -29,6 +29,8 @@ function libraryHandler () {
   // from $.post()
   this.addBook = function(req, res) {
     console.log('addBook' , req.body.title)
+    if(req.body.title === "" ) return res.json({error: 'please enter a title'});
+    
     let title = req.body.title.replace(/\b\w/g, (val) => val.toUpperCase());;
     
     Library
@@ -45,7 +47,6 @@ function libraryHandler () {
         
         library.save(function(err, success) {
           if(err) throw err;
-          console.log('Book Added', success)
           res.json(success);
         }, {new: true});
       
@@ -64,7 +65,7 @@ function libraryHandler () {
   //app.route('/api/books/:id')
   this.getBookId = function(req, res) {
     console.log('getBookId')
-      var bookid = req.params.id;
+    let bookid = req.params.id;
     Library
       .find({_id: bookid})
       .exec( (err, bookid) => {
@@ -88,8 +89,26 @@ function libraryHandler () {
   
   this.addComment = function(req, res) {
     console.log('addComment')
-      var bookid = req.params.id;
-      var comment = req.body.comment;
+      let comment = req.body.comment,
+          bookid  = req.params.id;
+    Library
+      .find({_id: bookid})
+      .exec( (err, book) => {
+        if(err) throw err;
+        console.log(comment)
+        
+        if(!bookid.length) {
+         console.log('no length', book)
+        } else {
+          book[0].book.comments.push(comment);
+          book.save((err, success) => {
+            console.log('success', success);
+          }, {new: true});
+        }
+       // res.json(response);
+      });     
+    
+    
       //json res format same as .get  
   };
   
