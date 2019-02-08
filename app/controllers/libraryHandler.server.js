@@ -47,6 +47,7 @@ function libraryHandler () {
         
         library.save(function(err, success) {
           if(err) throw err;
+          
           res.json(success);
         }, {new: true});
       
@@ -101,12 +102,9 @@ function libraryHandler () {
       .exec( (err, book) => {
         if(err) throw err;
         
-        console.log(book)
-        
         let response = {};
         
         if(!book) {
-          console.log('no Book!');
           response = {error: 'no book exists'};
         } else {
           let arr = book.book.comments;
@@ -114,25 +112,16 @@ function libraryHandler () {
           book.book.commentcount++;
           response = {
             _id : book._id,
-            _title: bookid[0].book.title,
-            comments: bookid[0].book.comments
+            _title: book.book.title,
+            comments: book.book.comments
           };          
           
         }
-//           arr.push(comment);
-//           book.book.commentcount++;
-//           response = {
-//             _id : book._id,
-//             _title: bookid[0].book.title,
-//             comments: bookid[0].book.comments
-//           };
-//         }
       
-//         book.save((err, success) => {
-//           if(err) throw err;
-//           console.log(success);
+        book.save(err => {
+          if(err) throw err;
           
-//         }, {new: true});
+        }, {new: true});
       
       res.json(response);
       });     
