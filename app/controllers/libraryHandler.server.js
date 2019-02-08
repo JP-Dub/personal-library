@@ -6,10 +6,16 @@ function libraryHandler () {
   // app.route('/api/books')
   // from $.get()
   this.getBooks = function(req, res) {
-    console.log('getBooks', res)
+    console.log('getBooks')
+    Library
+      .find({})
+      .exec( (err, books) => {
+      if(err) throw err;
+      
+      });
       //response will be array of book objects
       //json res format: [{"_id": bookid, "title": book_title, "commentcount": num_of_comments },...]
-    res.json(req.header)
+  
   };
   
   // from $.post()
