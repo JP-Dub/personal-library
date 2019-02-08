@@ -95,6 +95,7 @@ function libraryHandler () {
     console.log('addComment')
       let comment = req.body.comment,
           bookid  = req.params.id;
+    
     Library
       .findOneAndUpdate({_id: bookid})
       .exec( (err, book) => {
@@ -102,22 +103,24 @@ function libraryHandler () {
         console.log(book)
         let arr = book.book.comments
         let response = {};
-        if(!bookid.length) {
+        if(!book.length) {
           response = {error: 'no book exists'};
         } else {
           arr.push(comment);
           book.book.commentcount++;
+          response = {
+            _id : book._id,
+            _title: bookid[0].book.title,
+            comments: bookid[0].book.comments
+          };
         }
       
         book.save((err, success) => {
           if(err) throw err;
-          response = {
-            _id : bookid[0]._id,
-            _title: bookid[0].book.title,
-            comments: bookid[0].book.comments
-          };
+          console.log(success);
           
         }, {new: true});
+      
       res.json(response);
       });     
     
